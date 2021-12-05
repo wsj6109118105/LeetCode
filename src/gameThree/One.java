@@ -10,32 +10,29 @@ import java.util.List;
  **/
 public class One {
     public int[] findEvenNumbers(int[] digits) {
-        List<Integer> list = new ArrayList<>();
+        int[] a = new int[10];
         for(int i = 0;i<digits.length;i++) {
-            if(digits[i]==0) {
-                continue;
-            }
-            for(int j = 0;j<digits.length;j++) {
-                if(j==i) {
-                    continue;
-                }
-                for(int k = 0;k<digits.length;k++) {
-                    if(k==i||k==j) {
-                        continue;
-                    }
-                    if(digits[k]%2!=0) {
-                        continue;
-                    }
-                    if(!list.contains(digits[i]*100+digits[j]*10+digits[k]))
-                        list.add(digits[i]*100+digits[j]*10+digits[k]);
-                }
-            }
+            a[digits[i]]++;
         }
-        int[] a = new int[list.size()];
-        for (int i = 0;i<list.size();i++) {
-            a[i] = list.get(i);
+        List<Integer> list = new ArrayList<>();
+        for(int i = 100;i<1000;i+=2) {
+            int three = i%10;
+            int two = i/10%10;
+            int one = i/100;
+            a[one]--;
+            a[two]--;
+            a[three]--;
+            if(a[one]>=0&&a[two]>=0&&a[three]>=0) {
+                list.add(i);
+            }
+            a[one]++;
+            a[two]++;
+            a[three]++;
         }
-        Arrays.sort(a);
-        return a;
+        int[] arr = new int[list.size()];
+        for(int i = 0;i<list.size();i++) {
+            arr[i] = list.get(i);
+        }
+        return arr;
     }
 }
